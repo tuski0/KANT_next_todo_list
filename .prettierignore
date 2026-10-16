@@ -1,0 +1,19 @@
+# Dependencies and generated output
+node_modules/
+.next/
+out/
+build/
+coverage/
+.vercel/
+
+# Lockfiles and generated types
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+bun.lock
+bun.lockb
+next-env.d.ts
+*.tsbuildinfo
+
+# Generated agent instructions
+AGENTS.md
