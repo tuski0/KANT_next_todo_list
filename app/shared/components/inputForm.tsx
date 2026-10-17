@@ -1,44 +1,48 @@
 export default function InputForm() {
     return (
-        <form className="flex flex-row w-full min-h-60 text-xl items-center justify-center py-10">
-            <ul className="flex flex-col gap-y-5 px-5">
-                <li className="flex gap-x-10 h-15">
-                    <span 
-                        className="flex items-center justify-center w-30 bg-indigo-100 rounded-2xl">
-                        Date
-                    </span>
-                    <input type="date" className="border-2 px-5 w-100 rounded-2xl"/>
-                </li>
-                <li className="flex gap-x-10 h-15">
-                    <span
-                        className="flex items-center justify-center w-30 bg-indigo-100 rounded-2xl">
-                        Title
-                    </span>
-                    <input type="text" className="border-2 px-5 w-100 rounded-2xl" placeholder="Title"/>
-                </li>
-                <li className="flex gap-x-10 h-15">
-                    <span
-                        className="flex items-center justify-center w-30 bg-indigo-100 rounded-2xl">
-                        Memo
-                    </span>
-                    <input type="textarea" className="border-2 px-5 w-100 rounded-2xl" placeholder="간단한 Memo"/>
-                </li>
-                <li className="flex gap-x-10 h-15">
-                    <span
-                         className="flex items-center justify-center w-30 bg-indigo-100 rounded-2xl">
-                    Category
-                    </span>
-                    <select className="border-2 px-5 w-100 rounded-2xl" >
-                        <option>업무</option>
-                        <option>공부</option>
-                        <option>휴식</option>
-                    </select>
-                </li>
-            </ul>
-            <button type="submit" 
-                className="bg-indigo-100 text-black min-w-40 min-h-40 rounded-2xl">
-                제출
-            </button>
-        </form>
+        <div className="min-w-0 self-start xl:sticky xl:top-6">
+            <form className="flex w-full min-w-0 flex-col gap-6 py-10 text-sm sm:text-xl lx:text-2xl sm:flex-row sm:items-center ">
+                <ul className="flex flex-col gap-y-5 px-5 min-w-0 flex-1">
+                    <li className="flex gap-x-10 h-15 min-h-20 min-w-0 w-full flex-1">
+                        <span 
+                            className="flex items-center justify-center bg-black text-white rounded-2xl w-25">
+                            Date
+                        </span>
+                        <input type="date" className="border-2 px-5 rounded-2xl w-full flex-1 "/>
+                    </li>
+                    <li className="flex gap-x-10 h-15 min-h-20 min-w-0 w-full flex-1">
+                        <span
+                            className="flex items-center justify-center bg-black text-white rounded-2xl w-25" >
+                            Title
+                        </span>
+                        <input type="text" className="border-2 px-5 rounded-2xl w-full flex-1" placeholder="제목" maxLength={40}/>
+                    </li>
+                    <li className="flex gap-x-10 h-15 min-h-20 ">
+                        <span
+                            className="flex items-center justify-center bg-black text-white rounded-2xl w-25">
+                            Memo
+                        </span>
+                        <input type="text" className="border-2 px-5 rounded-2xl w-full flex-1"  placeholder="메모" maxLength={40}/>
+                    </li>
+                    <li className="flex gap-x-10 h-15 min-h-20 ">
+                        <span
+                            className="flex items-center justify-center bg-black text-white rounded-2xl w-25 ">
+                        Category
+                        </span>
+                        <select className="border-2 px-5 rounded-2xl cursor-pointer min-w-0 w-full flex-1" >
+                            <option>Python</option>
+                            <option>JAVA</option>
+                            <option>Java Script</option>
+                            <option>Next.js</option>
+                            <option>React</option>
+                        </select>
+                    </li>
+                </ul>
+                <button type="submit" 
+                    className="bg-black text-white min-w-40 min-h-40 rounded-2xl cursor-pointer">
+                    제출
+                </button>
+            </form>
+        </div>
     )
 }
