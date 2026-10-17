@@ -1,6 +1,7 @@
-import { Jua } from "next/font/google";
 import "./globals.css";
+import { Jua } from "next/font/google";
 import Header from "@/app/shared/Header";
+import Footer from "@/app/shared/Footer";
 
 const mainFont = Jua({
     weight: "400",
@@ -14,6 +15,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <body>
                 <Header />
                 {children}
+                <Footer />
             </body>
         </html>
     );
