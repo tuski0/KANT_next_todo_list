@@ -1,7 +1,7 @@
 export default function InputForm() {
     return (
         <div className="min-w-0 self-start xl:sticky xl:top-6">
-            <form className="flex w-full min-w-0 flex-col gap-6 py-10 text-sm sm:text-xl lx:text-2xl sm:flex-row sm:items-center ">
+            <form className="flex w-full min-w-0 flex-col gap-6 py-10 text-sm sm:text-xl xl:text-2xl sm:flex-row sm:items-center ">
                 <ul className="flex flex-col gap-y-5 px-5 min-w-0 flex-1">
                     <li className="flex gap-x-10 h-15 min-h-20 min-w-0 w-full flex-1">
                         <span 

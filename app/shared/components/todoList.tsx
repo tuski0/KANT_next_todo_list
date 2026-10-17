@@ -42,9 +42,6 @@ export function TodoListGrid({date, title, memo, category, isCheck }: todoProps)
                     <div className="wrap-anywhere">{title}</div>
                     <div className="wrap-anywhere">{memo}</div>
                     <div className="wrap-anywhere">{category}</div>
-
-
-
             </div>
             <div className="flex gap-5 p-3">
                 <button className="bg-black text-white h-15 w-full rounded-2xl hover:bg-blue-700 cursor-pointer">수정</button>
