@@ -1,25 +1,28 @@
-import { todoData } from "./test";
+import SupabaseTest from "@/app/shared/components/supabaseTest";
+import { UUID } from "crypto";
 
 interface todoProps {
+    id: UUID;
+    userId: UUID;
     date: string;
     title: string;
     memo: string;
-    category: string;
     isCheck: boolean;
+    categoryId: string;
 }
 
 export default function TodoList(): React.JSX.Element {
     return (
         <div className="">
             <ul className="grid grid-rows-2 grid-cols-2 gap-y-5 gap-x-5 p-3">
-                {todoData.map((todo) => {
+                {SupabaseTest.map((todo) => {
                     return (
                         <TodoListGrid
                             key={todo.id}
                             date={todo.date}
                             title={todo.title}
                             memo={todo.memo}
-                            category={todo.category}
+                            categoryId={todo.category}
                             isCheck={todo.isCheck}
                         />
                     );
@@ -30,10 +33,12 @@ export default function TodoList(): React.JSX.Element {
 }
 
 export function TodoListGrid({
+    id,
+    userId,
     date,
     title,
     memo,
-    category,
+    categoryId,
     isCheck,
 }: todoProps): React.JSX.Element {
     return (
@@ -51,7 +56,7 @@ export function TodoListGrid({
                 </div>
                 <div className="wrap-anywhere">{title}</div>
                 <div className="wrap-anywhere">{memo}</div>
-                <div className="wrap-anywhere">{category}</div>
+                <div className="wrap-anywhere">{categoryId}</div>
             </div>
             <div className="flex gap-5 p-3">
                 <button className="bg-black text-white h-15 w-full rounded-2xl hover:bg-blue-700 cursor-pointer">
