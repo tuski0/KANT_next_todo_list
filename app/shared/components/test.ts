@@ -1,0 +1,43 @@
+export const todoData = [
+    {
+        id: 1,
+        date: "2026-10-17",
+        title: "책 읽기",
+        memo: "자몽살구 클럽",
+        category: "독서",
+        isCheck: false,
+    },
+    {
+        id: 2,
+        date: "2026-10-17",
+        title: "공부하기",
+        memo: "Python",
+        category: "공부",
+        isCheck: false,
+    },
+    {
+        id: 3,
+        date: "2026-10-17",
+        title: "운동",
+        memo: "5KM",
+        category: "운동",
+        isCheck: false,
+    },
+    {
+        id: 4,
+        date: "2026-10-17",
+        title: "운동운동운동운동운동운동운동운동운동운동운동운동운동운동운동운동운동운동운동운동운동운동운동운동운동운동운동운동운동운동",
+        memo: "5KM5KM5KM5KM5KM5KM5KM5KM5KM5KM5KM5KM5KM5KM5KM5KM5KM5KM5KM5KM5KM5KM5KM5KM5KM5KM5KM5KM5KM5KM5KM5KM",
+        category:
+            "운동운동운동운동운동운동운동운동운동운동운동운동운동운동운동운동운동운동운동운동운동운동운동",
+        isCheck: false,
+    },
+    {
+        id: 5,
+        date: "2026-10-17",
+        title: "운동",
+        memo: "5KM",
+        category: "운동",
+        isCheck: true,
+    },
+];
