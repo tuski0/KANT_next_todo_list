@@ -1,9 +1,48 @@
+"use client";
+
+import { INITIAL_ACTION_STATE } from "@/app/shared/types/action.types";
+import { ChangeEvent, useActionState, useEffect, useState } from "react";
+import { signInAction } from "../actions/login.action";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
+interface FormType {
+    email: string;
+    password: string;
+}
+
+const initialForm: FormType = {
+    email: "",
+    password: "",
+};
+
 export default function LoginInputForm() {
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const redirectUrl = searchParams.get("redirectUrl") || "/";
+
+    const [state, formAction, isPending] = useActionState(
+        signInAction,
+        INITIAL_ACTION_STATE,
+    );
+
+    const [form, setForm] = useState(initialForm);
+    const onChange = (e: ChangeEvent<HTMLInputElement>) =>
+        setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+
+    useEffect(() => {
+        if (state.success) {
+            router.push(redirectUrl);
+            router.refresh();
+        }
+    }, [state.success, redirectUrl, router]);
+
     return (
         <div className="flex justify-center">
-            <form className="flex flex-col text-xl min-h-50 justify-center items-center">
+            <form
+                className="flex flex-col text-xl min-h-50 justify-center items-center"
+                action={formAction}
+            >
                 <div className="flex flex-col gap-x-10 gap-y-10 justify-center py-10">
                     <div className="flex items-center justify-center text-5xl">
                         <h1>LOGIN</h1>
@@ -17,8 +56,14 @@ export default function LoginInputForm() {
                                 type="email"
                                 name="email"
                                 className="bg-black text-white p-3 rounded-xl"
+                                placeholder="email"
+                                value={form.email}
+                                onChange={onChange}
                             />
                         </div>
+                        {state.errors?.email && (
+                            <div className="mb-4">{state.errors.email}</div>
+                        )}
                         <div className="flex justify-between gap-x-10">
                             <span className="h-15 w-20 bg-black text-white flex items-center justify-center rounded-2xl">
                                 비밀번호
@@ -29,6 +74,9 @@ export default function LoginInputForm() {
                                 className="bg-black text-white p-3 rounded-xl"
                             />
                         </div>
+                        {state.errors?.password && (
+                            <div className="mb-4">{state.errors.password}</div>
+                        )}
                     </div>
                     <div className="flex items-center justify-between">
                         <button
@@ -38,7 +86,7 @@ export default function LoginInputForm() {
                             LOGIN
                         </button>
                         <Link
-                            href="/"
+                            href="/join"
                             className="flex items-center justify-center bg-black text-white cursor-pointer h-20 w-40 rounded-xl"
                         >
                             JOIN

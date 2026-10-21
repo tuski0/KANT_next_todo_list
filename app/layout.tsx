@@ -1,7 +1,7 @@
 import "./globals.css";
 import { Jua } from "next/font/google";
-import Header from "@/app/shared/Header";
-import Footer from "@/app/shared/Footer";
+import Header from "@/app/shared/components/Header";
+import Footer from "@/app/shared/components/Footer";
 
 const mainFont = Jua({
     weight: "400",
