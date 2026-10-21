@@ -15,6 +15,7 @@ export default function LoginInputForm() {
                             </span>
                             <input
                                 type="email"
+                                name="email"
                                 className="bg-black text-white p-3 rounded-xl"
                             />
                         </div>
@@ -24,6 +25,7 @@ export default function LoginInputForm() {
                             </span>
                             <input
                                 type="password"
+                                name="password"
                                 className="bg-black text-white p-3 rounded-xl"
                             />
                         </div>
