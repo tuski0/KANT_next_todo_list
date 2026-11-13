@@ -78,12 +78,19 @@ export default function LoginInputForm() {
                             <div className="mb-4">{state.errors.password}</div>
                         )}
                     </div>
+                    {/* 서버 처리 결과 메시지 (실패 시) */}
+                    {state.message && !state.success && (
+                        <p className="text-red-500 text-center">
+                            {state.message}
+                        </p>
+                    )}
                     <div className="flex items-center justify-between">
                         <button
                             type="submit"
-                            className="bg-black text-white cursor-pointer h-20 w-40 rounded-xl"
+                            disabled={isPending}
+                            className="bg-black text-white cursor-pointer h-20 w-40 rounded-xl disabled:opacity-50"
                         >
-                            LOGIN
+                            {isPending ? "로그인 중..." : "LOGIN"}
                         </button>
                         <Link
                             href="/join"

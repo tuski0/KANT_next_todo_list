@@ -1,14 +1,66 @@
 # Kant Todo List
 
-Next.js와 TypeScript로 만드는 할 일 관리 웹 애플리케이션입니다.
-현재는 프로젝트 초기 설정 단계이며, 할 일 관리 기능은 아직 구현되지 않았습니다.
+Next.js와 TypeScript로 만드는 회원 전용 할 일 관리 웹 애플리케이션입니다.
+Supabase로 회원가입·로그인과 할 일 데이터를 관리합니다.
+
+## 주요 기능
+
+- 회원가입 / 로그인 / 로그아웃 (Supabase Auth)
+- 로그인하지 않은 사용자는 `/login`으로 이동 (`proxy.ts`)
+- 할 일 등록 · 완료 체크 · 삭제 (완료·삭제는 `useOptimistic`으로 즉시 반영)
+- 할 일 상세 페이지(`/todo/[id]`)에서 수정
+- 카테고리 추가 및 색상 표시
+- 로딩(Suspense 스켈레톤) · 오류(`error.tsx`) · 빈 목록 · 없는 할 일(`not-found.tsx`) 화면
 
 ## 기술 스택
 
-- Next.js 16 (App Router)
+- Next.js 16 (App Router, Cache Components)
 - React 19, TypeScript
 - Tailwind CSS 4
+- Supabase (Auth, PostgreSQL + RLS)
 - ESLint, Prettier
+
+## 폴더 구조
+
+```
+app/
+├── (auth)/join, (auth)/login   # 회원가입·로그인 페이지
+├── todo/[id]/                  # 할 일 상세(동적 라우트) + not-found
+├── page.tsx                    # 메인: 서버에서 조회 → 클라이언트 컴포넌트에 Props 전달
+├── error.tsx                   # 에러 바운더리
+├── domains/
+│   ├── auth/  {actions, components, queries, types, utils}
+│   └── todo/  {actions, components, queries, types, utils}
+└── shared/    {components, lib, types}
+```
+
+## 렌더링 방식
+
+- **서버 컴포넌트**: `page.tsx`, 상세 페이지, Header. 쿠키(로그인 정보)로 Supabase를 조회해서
+  브라우저로 키나 쿼리를 보내지 않고, 첫 화면에 데이터가 포함된 HTML을 내려줍니다.
+- **클라이언트 컴포넌트**: 입력 폼, 목록, 상세 수정 폼. `useActionState`, `useOptimistic` 같은
+  상호작용이 필요한 부분만 `"use client"`로 분리했습니다.
+- 데이터 조회 부분은 `<Suspense>`로 감싸서 헤더 같은 정적인 부분을 먼저 보여주고
+  데이터는 준비되는 대로 스트리밍합니다.
+
+## 환경 변수
+
+`.env.local`(배포 시 Vercel 환경 변수)에 아래 값을 설정합니다.
+
+```
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
+```
+
+## Supabase 테이블
+
+| 테이블      | 컬럼                                                  |
+| ----------- | ----------------------------------------------------- |
+| `profiles`  | id, name, email, deletedAt ...                        |
+| `todo_list` | id, user_id, title, memo, date, category_id, is_check |
+| `category`  | id, user_id, title, color                             |
+
+모든 테이블은 RLS를 켜고 `auth.uid() = user_id` 정책으로 본인 데이터만 접근할 수 있습니다.
 
 ## 시작하기
 
@@ -19,7 +71,6 @@ npm run dev
 ```
 
 브라우저에서 [http://localhost:3000](http://localhost:3000)에 접속합니다.
-`app/page.tsx`를 수정하면 개발 화면에 자동으로 반영됩니다.
 
 ## 개발 명령어
 
