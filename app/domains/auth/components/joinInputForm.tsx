@@ -34,9 +34,12 @@ export default function JoinInputForm() {
         setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
     useEffect(() => {
+        // 성공 시 이동만 처리
+        // (서버 액션의 revalidatePath로 캐시가 갱신되므로 router.refresh()는 호출하지 않음.
+        //  push 직후 refresh를 부르면 아직 현재 페이지에 있는 상태로 새로고침되어 이동이 취소될 수 있음)
+        // replace: 뒤로 가기로 로그인·회원가입 폼에 다시 돌아오지 않도록
         if (state.success) {
-            router.push(redirectUrl);
-            router.refresh();
+            router.replace(redirectUrl);
         }
     }, [state.success, redirectUrl, router]);
 
@@ -128,10 +131,14 @@ export default function JoinInputForm() {
                             </div>
                         )}
                     </div>
-                    {/* 서버 처리 결과 메시지 (실패 시) */}
-                    {state.message && !state.success && (
-                        <p className="text-red-500 text-center">
-                            {state.message}
+                    {/* 서버 처리 결과 메시지 (성공: 이동 전까지 안내, 실패: 사유) */}
+                    {state.message && (
+                        <p
+                            className={`text-center ${state.success ? "text-green-600" : "text-red-500"}`}
+                        >
+                            {state.success
+                                ? `${state.message} 잠시 후 이동합니다...`
+                                : state.message}
                         </p>
                     )}
                     <div className="flex items-center">
