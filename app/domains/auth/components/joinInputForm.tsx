@@ -1,9 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { INITIAL_ACTION_STATE } from "@/app/shared/types/action.types";
 import { ChangeEvent, useActionState, useEffect, useState } from "react";
-import { signInAction } from "../actions/login.action";
+import { signUpAction } from "../actions/signup.action";
 import { useRouter, useSearchParams } from "next/navigation";
 
 interface FormType {
@@ -26,7 +25,7 @@ export default function JoinInputForm() {
     const redirectUrl = searchParams.get("redirectUrl") || "/";
 
     const [state, formAction, isPending] = useActionState(
-        signInAction,
+        signUpAction,
         INITIAL_ACTION_STATE,
     );
 
@@ -52,10 +51,13 @@ export default function JoinInputForm() {
                         <h1>JOIN</h1>
                     </div>
                     <div className="flex flex-col justify-center gap-y-6 ">
-                        <div className="flex justify-between gap-x-10">
-                            <span className="h-15 w-20 bg-black text-white flex items-center justify-center rounded-xl">
+                        <div className="flex flex-col gap-y-1">
+                            <label
+                                className="text-black text-xl ml-2"
+                                htmlFor="email"
+                            >
                                 이메일
-                            </span>
+                            </label>
                             <input
                                 type="email"
                                 name="email"
@@ -63,18 +65,23 @@ export default function JoinInputForm() {
                                 placeholder="email"
                                 value={form.email}
                                 onChange={onChange}
+                                id="email"
                             />
                         </div>
                         {state.errors?.email && (
                             <div className="mb-4">{state.errors.email}</div>
                         )}
-                        <div className="flex justify-between gap-x-10">
-                            <span className="h-15 w-20 bg-black text-white flex items-center justify-center rounded-xl">
+                        <div className="flex flex-col gap-y-1">
+                            <label
+                                className="text-black text-xl ml-2"
+                                htmlFor="name"
+                            >
                                 이름
-                            </span>
+                            </label>
                             <input
                                 type="text"
                                 name="name"
+                                id="name"
                                 className="bg-black text-white p-3 rounded-xl"
                                 placeholder="name"
                                 value={form.name}
@@ -84,40 +91,57 @@ export default function JoinInputForm() {
                         {state.errors?.name && (
                             <div className="mb-4">{state.errors.name}</div>
                         )}
-                        <div className="flex justify-between gap-x-10">
-                            <span className="h-15 w-20 bg-black text-white flex items-center justify-center rounded-2xl">
+                        <div className="flex flex-col gap-y-1">
+                            <label
+                                className="text-black text-xl ml-2"
+                                htmlFor="password"
+                            >
                                 비밀번호
-                            </span>
+                            </label>
                             <input
                                 type="password"
                                 name="password"
                                 className="bg-black text-white p-3 rounded-xl"
+                                id="password"
                             />
                         </div>
-                        <div className="flex justify-between gap-x-10">
-                            <span className="h-15 w-20 bg-black text-white flex items-center justify-center rounded-2xl">
+                        {state.errors?.password && (
+                            <div className="mb-4">{state.errors.password}</div>
+                        )}
+                        <div className="flex flex-col gap-y-1">
+                            <label
+                                className="text-black text-xl ml-2"
+                                htmlFor="passwordConfirm"
+                            >
                                 비밀번호 확인
-                            </span>
+                            </label>
                             <input
                                 type="password"
                                 name="passwordConfirm"
+                                id="passwordConfirm"
                                 className="bg-black text-white p-3 rounded-xl"
                             />
                         </div>
+                        {state.errors?.passwordConfirm && (
+                            <div className="mb-4">
+                                {state.errors.passwordConfirm}
+                            </div>
+                        )}
                     </div>
-                    <div className="flex items-center justify-between">
+                    {/* 서버 처리 결과 메시지 (실패 시) */}
+                    {state.message && !state.success && (
+                        <p className="text-red-500 text-center">
+                            {state.message}
+                        </p>
+                    )}
+                    <div className="flex items-center">
                         <button
                             type="submit"
-                            className="bg-black text-white cursor-pointer h-20 w-40 rounded-xl"
+                            disabled={isPending}
+                            className="bg-black text-white cursor-pointer h-20 w-100 rounded-xl disabled:opacity-50"
                         >
-                            LOGIN
+                            {isPending ? "가입 중..." : "JOIN"}
                         </button>
-                        <Link
-                            href="/"
-                            className="flex items-center justify-center bg-black text-white cursor-pointer h-20 w-40 rounded-xl"
-                        >
-                            JOIN
-                        </Link>
                     </div>
                 </div>
             </form>
