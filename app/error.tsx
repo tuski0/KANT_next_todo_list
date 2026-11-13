@@ -16,8 +16,13 @@ export default function ErrorPage({
         console.error(error);
     }, [error]);
 
+    // 배포(프로덕션) 환경에서는 Next.js가 서버 에러 내용을 숨기고
+    // "Minified React error ..." 같은 코드만 넘겨주므로, 사용자에게는 고정 문구를 보여줌
+    // (자세한 원인은 위 console.error와 Vercel 로그에서 확인)
     const message =
-        error instanceof Error ? error.message : "알 수 없는 오류입니다.";
+        process.env.NODE_ENV === "development" && error instanceof Error
+            ? error.message
+            : "데이터를 불러오는 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.";
 
     return (
         <div className="flex flex-col items-center gap-6 py-20 text-xl">
