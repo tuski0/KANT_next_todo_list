@@ -3,6 +3,9 @@
 Next.js와 TypeScript로 만드는 회원 전용 할 일 관리 웹 애플리케이션입니다.
 Supabase로 회원가입·로그인과 할 일 데이터를 관리합니다.
 
+- **배포 주소**: https://kant-next-todo-list-dvx8.vercel.app/
+- **저장소**: https://github.com/tuski0/KANT_next_todo_list
+
 ## 주요 기능
 
 - 회원가입 / 로그인 / 로그아웃 (Supabase Auth)
